@@ -4,7 +4,7 @@
 void enqueue_rear();
 void enqueue_front();
 void dequeue_front();
-void  dequeue_rear();
+void dequeue_rear();
 
 void show();
 void total();
@@ -17,13 +17,13 @@ int ch;
 while(1)
 {
 printf("1. enqueue operation from rear \n");
-printf(". enqueue operation from front \n");
+printf("2. enqueue operation from front \n");
 printf("3. dequeue operation from front \n");
 printf("4. dequeue operation from rear \n");
 printf("5. show operation \n");
 printf("6. total number of element in the queue \n");
 printf("7. exit \n");
-printf("enter your choice of operation :");
+printf("enter your choice of operation :\n");
 scanf("%d",&ch);
 switch(ch)
 {
@@ -45,7 +45,7 @@ case 5:
     show();
     break;
 case 6:
-    total();
+   total();
     break;
 case 7:
     exit(0);
@@ -59,15 +59,20 @@ void enqueue_rear()
 {
 
     int data;
+     printf("element to be inserted in the queue \n:");
+    scanf("%d",&data);
+
     if(Front==0 && Rear==SIZE-1)
     printf("queue is full");
-    elseif(Front==Rear+1)
+    else if(Front==Rear+1)
     printf("queue is full");
-    elseif(Front==-1 && Rear==-1)
+    else if(Front==-1 && Rear==-1)
     {
 
         Front=0;
+
         Rear=0;
+
         DQueue[Rear]=data;
 
     }
@@ -76,7 +81,7 @@ void enqueue_rear()
 
         if(Rear!=SIZE-1){
         Rear=Rear+1;
-        DQueue[Rear]=item;
+        DQueue[Rear]=data;
 
         }
         else
@@ -90,6 +95,7 @@ void enqueue_rear()
             }
         }
 
+
     }
 
 
@@ -101,11 +107,14 @@ void enqueue_front()
 {
 
     int data;
+     printf("element to be inserted in the queue \n:");
+    scanf("%d",&data);
+
     if(Front==0 && Rear==SIZE-1)
     printf("queue is full");
-    elseif(Front==Rear+1)
+    else if(Front==Rear+1)
     printf("queue is full");
-    elseif(Front==-1 && Rear==-1)
+    else if(Front==-1 && Rear==-1)
     {
 
         Front=0;
@@ -117,6 +126,7 @@ void enqueue_front()
     {
 
         if(Front!=0){
+
         Front=Front-1;
         DQueue[Front]=data;
 
@@ -138,7 +148,7 @@ void enqueue_front()
 
 
 }
-void dequeue_Front()
+void dequeue_front()
 {
     int data;
 
@@ -164,7 +174,7 @@ void dequeue_Front()
     }
 }
 
-void dequeue_Rear()
+void dequeue_rear()
 {
     int data;
 
@@ -189,6 +199,26 @@ void dequeue_Rear()
         printf("Deleted element is %d\n",data);
     }
 }
+   void show()
+{
 
+printf("elements :");
+for(int i=Front;i<=Rear;i++){
+printf(" %d ",DQueue[i]);
+}
+}
+
+
+void total(){
+int noe;
+if(Front==-1 && Rear==-1)
+
+    printf("Queue id empty");
+else
+{
+    noe=(Rear-Front)+1;
+    printf("total number of element are:%d\n",noe);
+}
+}
 
 
