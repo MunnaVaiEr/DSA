@@ -91,8 +91,10 @@ void enqueue_rear()
             {
 
                 DQueue[i-1]=DQueue[i];
-                DQueue[Rear]=data;
+                
             }
+            DQueue[Rear]=data;
+            Rear++;
         }
 
 
@@ -138,8 +140,10 @@ void enqueue_front()
             {
 
                 DQueue[i+1]=DQueue[i];
-                DQueue[Front]=data;
+                
             }
+            DQueue[Front]=data;
+            Front--;
         }
 
     }
