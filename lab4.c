@@ -206,7 +206,7 @@ void dequeue_rear()
    void show()
 {
 
-printf("elements :");
+printf("elements :\n");
 for(int i=Front;i<=Rear;i++){
 printf(" %d ",DQueue[i]);
 }
