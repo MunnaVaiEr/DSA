@@ -1,16 +1,8 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<conio.h>
 #include<malloc.h>          //for malloc function
-#include<process.h>         //for exit function
-struct node
-{
-    int info;
-    struct node *next;
-
-};
-typedef struct node NodeType;
-NodeType *first, *last;
-first=last=NULL;
+#include<process.h>
 void insert_atfirst(int);
 void insert_givenposition(int);
 void insert_atend(int);
@@ -19,13 +11,23 @@ void delete_last();
 void delete_nthnode();
 void info_sum();
 void count_nodes();
-void display();
+void display();       //for exit function
+struct node
+{
+    int info;
+    struct node *next;
+
+};
+//typedef struct node;
+struct node *first=NULL, *last=NULL;
+
+
 void main()
 {
 
     int choice;
-    int item;
-    clrscr();
+    int item,pos;
+    //clrscr();
     do
     {
 
@@ -33,7 +35,7 @@ void main()
         printf("1.insert first\n 2.insert at given position \n 3.insert last\n 4.Delete first node\n 5.delete last node\n 6.delete nth node\n 7.info sum\n 8.count nodes\n 9.display items\n 10.exit\n");
         printf("enter your choice\n");
         scanf("%d",&choice);
-        switch(choice);
+        switch(choice)
         {
      case 1:
          printf("enter item to be inserted");
@@ -42,13 +44,13 @@ void main()
          break;
      case 2:
          printf("enter item to be inserted");
-         scanf("%d",&item);
+         scanf("%d%d",&item);
          insert_givenposition(item);
          break;
     case 3:
         printf("enter item to be inserted");
         scanf("%d",&item);
-        insert_atend();
+        insert_atend(item);
         break;
     case 4:
         delete_first();
@@ -69,26 +71,26 @@ void main()
         display();
         break;
     case 10:
-        exit(1);
+        exit(0);
         break;
     default:
           printf("invalid choice\n");
         }
-    }
-    while(choice<10);
+    }while(choice<10);
     getch();
 }
 
 void insert_atfirst(int item)
 {
 
-    NodeType *Newnode;
-    Newnode=(NodeType*)malloc(sizeof(NodeType));
-    if(first==null)
+    struct node *Newnode;
+    Newnode=(struct node*)malloc(sizeof(struct node));
+    Newnode->info=item;
+    if(first==NULL)
     {
-        Newnode->next=null;
-        first=newnode;
-        last==newnode;
+        Newnode->next=NULL;
+        first=Newnode;
+        last=Newnode;
     }
     else
     {
@@ -100,23 +102,28 @@ void insert_atfirst(int item)
 
 void insert_givenposition(int item)
 {
-    int pos,i;
-    NodeType *Newnode, *temp;
-    newnode->info=item;
-    printf("Enter position of a node at which you want to insert a new node");
-    scanf("%d",&pos);
-    if(first==null);
+    int i=1,pos;
+    struct node *Newnode, *temp;
+    Newnode->info=item;
+    temp=first;
+
+    if(first==NULL)
     {
-        first=newnode;
-        last=newnode;
+        printf("Enter position of a node at which you want to insert a new node");
+        first=Newnode;
+        last=Newnode;
+        Newnode->next=NULL;
 
     }
     else
-    {
-        temp=first;
-        for(i=1;i<pos-1;i++)
+        {
+            printf("Enter position of a node at which you want to insert a new node");
+            scanf("%d",&pos);
+
+        while(i<pos-1)
         {
             temp=temp->next;
+            i++;
         }
         Newnode->next=temp->next;
         temp->next=Newnode;
@@ -126,26 +133,27 @@ void insert_givenposition(int item)
 
 void insert_atend(int item)
 {
-    NodeType *NewNode;
-    Newnode=(NodeType*)malloc(sizeof(NodeType));
+    struct node *Newnode;
+    Newnode=(struct node*)malloc(sizeof(struct node));
     Newnode->info=item;
     Newnode->next=NULL;
-    if(first==null)
+    if(first==NULL)
     {
-        first=newnode;
-        last=newnode;
+        first=Newnode;
+        last=Newnode;
     }
     else
     {
-        last->next=newnode;
-        last=newnode;
+        last->next=Newnode;
+        last=Newnode;
     }
 }
 
 
 void delete_first()
 {
-    NodeType *temp;
+    struct node *temp,*head;
+
     if(head==NULL)
     {
         printf("void deletion\n");
@@ -154,7 +162,9 @@ void delete_first()
     else
     {
         temp=head;
+
         head=head->next;
+        temp->next = NULL;
         free(temp);
     }
 }
@@ -162,7 +172,7 @@ void delete_first()
 
 void delete_last()
 {
-    NodeType *hold,*temp;
+   struct node *hold,*temp,*head;
     if(head==NULL)
     {
         printf("void deletion\n");
@@ -188,7 +198,7 @@ void delete_last()
 
 void delete_nthnode()
 {
-    NodeType *hold, *temp;
+    struct node *hold, *temp;
     int pos,i;
     if(first==NULL)
     {
@@ -200,7 +210,7 @@ void delete_nthnode()
         temp=first;
         printf("Enter position of node which is to be deleted\n");
         scanf("%d",&pos);
-        for(i=1;i<pos-1,i++)
+        for(i=1;i<pos-1;i++)
             temp=temp->next;
         hold=temp->next;
         temp->next=hold->next;
@@ -211,7 +221,7 @@ void delete_nthnode()
 
 void info_sum()
 {
-    NodeType *temp;
+    struct node *temp;
     temp=first;
     while(temp!=NULL)
     {
@@ -225,7 +235,7 @@ void info_sum()
 void count_nodes()
 {
     int cnt=0;
-    NodeType *temp;
+    struct node *temp;
     temp=first;
     while(temp!=NULL)
     {
@@ -233,4 +243,26 @@ void count_nodes()
         temp==temp->next;
     }
     printf("total nodes=%d",cnt);
+}
+
+
+void display()
+{
+    struct node *temp;
+
+    if(first==NULL)
+    {
+        printf("Empty linked list");
+        return;
+    }
+    else
+    {
+        temp=first;
+        while(temp->next!=NULL)
+        {
+            printf("Elements are:%d\t",temp->info);
+            temp=temp->next;
+        }
+        printf("Elements are:%d\t",temp->info);
+    }
 }
